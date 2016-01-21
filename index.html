@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="http://wwwendt.de/tech/dynatree/src/skin/ui.dynatree.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/team.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://wwwendt.de/tech/dynatree/jquery/jquery-ui.custom.js"></script>
+    <script src="http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js"></script>
+    <script src="http://wwwendt.de/tech/dynatree/src/jquery.dynatree.js"></script>
+    <script src="js/tree.js"></script>
+    <script src="js/app.js"></script>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Grids</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div ng-controller="MainCtrl" class="container content">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="button" class="btn btn-default" ng-click="collapse = !collapse" ng-init="collpase = false">
+            <span class="glyphicon" ng-class="{'glyphicon-chevron-up':!collapse,'glyphicon-chevron-down':collapse}"></span>
+          </button>
+        </div>
+      </div>
+
+      <form class="form" ng-class="{collapse:collapse}">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Start Date:</label>
+            <input type="date" id="startDate" ng-model="search.startDate"/>
+          </div>
+          <div class="col-md-6">
+            <label>End Date:</label>
+            <input type="date" id="endDate" ng-model="search.endDate"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+              <label>Team</label>
+              <div style="width: 500px;">
+                <div>
+                  <input ng-model="search.teamSelected" readonly="true" type="text" id="displayText" style="float:left;width:470px"/>
+                  <input type="button" id="opener" style="width:24px" value="&darr;"/>
+                </div>
+                <div style="display:none" id="options">
+                  <p>
+                    <a class="btn btn-primary" href="#" id="btnSelectAll">Select all</a>
+                    <a class="btn btn-primary" href="#" id="btnDeselctAll">Deselect all</a>
+                    <a class="button" href="#" id="btnToggle">to dict</a>
+                  </p>
+                </div>
+                <div style="display:none" id="tree3"></div>
+              </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 form-group">
+              <label>Front line lease</label>
+              <select class="form-control" ng-model="search.frontLease">
+                <option value="Monthly">Monthly</option>
+                <option value="Quaterly">Quaterly</option>
+                <option value="Yearly">Yearly</option>
+              </select>
+          </div>
+
+          <div class="col-md-6 form-group">
+              <label for="interactionType">Interaction Channel</label>
+              <select class="form-control" id="interactionType" ng-model="search.interactionType">
+                <option value="All">All</option>
+                <option value="Mail">Mail</option>
+                <option value="E-Mail">E-Mail</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="row">  
+          <div class="col-md-6">
+              <label for="ratingType">Rating Type</label>
+              <select class="form-control" id="ratingType" ng-model="search.ratingType">
+                <option value="All">All</option>
+                <option value="Superior">Superior</option>
+                <option value="Manager">Manager</option>
+              </select>
+          </div>
+          
+          <div class="col-md-6">      
+            <label for="transactionType">Transaction Type</label>
+            <select class="form-control" id="transactionType" ng-model="search.transactionType">
+              <option value="All">All</option>
+              <option value="Single">Single</option>
+              <option value="Bi channel">Bi channel</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1 filterButton">
+            <button class="btn btn-primary" ng-click="filter()">search</button>
+          </div>
+        </div>
+      
+      </form>
+      
+      <div class="row" style="padding:10px 15px 0px 15px">
+        <label>Selected Team:</label>
+        <div class="teamRow">
+          <form class="col-md-10" id="accordionTeam" ng-class="{height:expand}"></form>
+          <div class="btnwrap col-md-1">
+            <a class="btn btn-primary" href id="showAllButton" 
+            ng-init="expand = false" ng-click="expand = !expand">Show all</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="padding:10px 0px 0px 0px">
+        <div class="col-md-1">
+          <button id="expandAll" type="button" class="btn btn-success" ng-click="expandAll()">Expand All</button>
+        </div>
+        <div class="col-md-1">
+          <button id="expandAll" type="button" class="btn btn-success" ng-click="expandColumns()">Expand All Columns</button>
+        </div>
+      </div>
+      
+      <div class="row" style="padding:10px 15px 0px 15px">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-grouping ui-grid-pinning ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection class="mygrid" ng-class="{gridexpand: collapse}"></div>
+      </div>
+    </div>
+
+    <script type="text/ng-template" id="expandCellTemplate">
+      <div
+        role="columnheader"
+        ng-class="{ 'sortable': sortable }"
+        ui-grid-one-bind-aria-labelledby-grid="col.uid + '-header-text ' + col.uid + '-sortdir-text'"
+        aria-sort="{{col.sort.direction == asc ? 'ascending' : ( col.sort.direction == desc ? 'descending' : (!col.sort.direction ? 'none' : 'other'))}}">
+        <div
+          role="button"
+          tabindex="0"
+          class="ui-grid-cell-contents ui-grid-header-cell-primary-focus"
+          col-index="renderIndex"
+          title="TOOLTIP">
+          <span
+            class="ui-grid-header-cell-label"
+            ui-grid-one-bind-id-grid="col.uid + '-header-text'">
+            {{ col.displayName CUSTOM_FILTERS }}
+          </span>
+          
+          <span
+            ui-grid-one-bind-id-grid="col.uid + '-sortdir-text'"
+            ui-grid-visible="col.sort.direction"
+            aria-label="{{getSortDirectionAriaLabel()}}">
+            <i
+             ng-class="{ 'ui-grid-icon-up-dir': col.sort.direction == asc, 'ui-grid-icon-down-dir': col.sort.direction == desc, 'ui-grid-icon-blank': !col.sort.direction }"
+             title="{{col.sort.priority ? i18n.headerCell.priority + ' ' + col.sort.priority : null}}"
+             aria-hidden="true">
+           </i>
+           <sub
+             class="ui-grid-sort-priority-number">
+             {{col.sort.priority}}
+           </sub>
+          </span>
+        </div>
+
+        <div role="button" class="grid-menu-expand">
+          <button class="btn btn-default btn-xs" 
+            ng-click="grid.appScope.expandColumn(col.name, $event); ">
+            <i class="fa fa-arrows-alt"></i>
+          </button>
+        </div>
+
+        <div
+          role="button"
+          tabindex="0"
+          ui-grid-one-bind-id-grid="col.uid + '-menu-button'"
+          class="ui-grid-column-menu-button"
+          ng-if="grid.options.enableColumnMenus && !col.isRowHeader  && col.colDef.enableColumnMenu !== false"
+          ng-click="toggleMenu($event)"
+          ui-grid-one-bind-aria-label="i18n.headerCell.aria.columnMenuButtonLabel"
+          aria-haspopup="true">
+          <i
+            class="ui-grid-icon-angle-down"
+            aria-hidden="true">
+            &nbsp;
+          </i>
+        </div>
+
+        <div ui-grid-filter></div>
+      </div>
+    </script>
+    <script type="text/ng-template" id="headerRow">
+      <div role="rowgroup"
+           class="ui-grid-header">
+          <div class="ui-grid-top-panel">
+              <div class="ui-grid-header-viewport">
+                  <div class="ui-grid-header-canvas">
+                      <div class="ui-grid-header-cell-wrapper"
+                           ng-style="colContainer.headerCellWrapperStyle()">
+                          <div role="row"
+                               class="ui-grid-header-cell-row">
+                              <div class="ui-grid-header-cell ui-grid-clearfix ui-grid-category" ng-repeat="cat in grid.options.category"
+                                   ng-if="cat.visible && 
+                                   (colContainer.renderedColumns | filter:{ colDef:{category: cat.name} }).length > 0">
+                                   <span ng-if="cat.showCatName === true">
+                                      {{cat.name}}
+                                    </span>
+                                    <!--<p ng-if="cat.showCatName !== true">
+                                      
+                                    </p>-->
+                                  <div class="ui-grid-header-cell ui-grid-clearfix topborder" 
+                                       ng-repeat="col in colContainer.renderedColumns | filter:{ colDef:{category: cat.name} }"
+                                       ui-grid-header-cell
+                                       col="col"
+                                       render-index="$index">
+                                  </div>
+                              </div><!--!cat.visible && -->
+                              <div class="ui-grid-header-cell ui-grid-clearfix" ng-if="col.colDef.category === undefined"
+                                   ng-repeat="col in colContainer.renderedColumns track by col.uid"
+                                   ui-grid-header-cell
+                                   col="col"
+                                   render-index="$index">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </script>
+  </body>
+</html>

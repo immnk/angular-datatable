@@ -1,0 +1,131 @@
+*{
+	box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+.mygrid {
+	width: 100%;
+	/*padding: 10px;*/
+	height: 50vh;
+}
+.gridexpand{
+  height: 80vh;
+}
+.padder{
+	padding: 10px 0 0 0;
+}
+.captial{
+	text-transform: capitalize;
+}
+.trim{
+  position: relative;
+}
+.trim:hover{
+	background: white;
+  white-space: pre-wrap;
+  z-index: 1000;
+  height: auto;
+  max-height: 550px;
+  position: absolute;
+  width: calc(30% - 22px);
+  overflow-y: scroll;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 0 10px 6px -6px #777;
+}
+.rowexpand, .columnexpand{
+  /*background-color: yellow;*/
+  position: absolute;
+  z-index: 1;
+}
+.rowexpand{
+  right: 5px;
+}
+.columnexpand{
+  right: 44px;
+}
+.texttrim{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.teamSelect{
+  text-transform: capitalize;
+  font-weight: bold;
+}
+ul.dynatree-container {
+  height: 150px;
+  overflow-y: scroll;
+}
+.button {
+  border-top: 1px solid #96d1f8;
+  background: #65a9d7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+  background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+  background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+  background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+  background: -o-linear-gradient(top, #3e779d, #65a9d7);
+  padding: 7.5px 15px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  box-shadow: rgba(0,0,0,1) 0 1px 0;
+  text-shadow: rgba(0,0,0,.4) 0 1px 0;
+  color: white;
+  font-size: 13px;
+  font-family: Helvetica, Arial, Sans-Serif;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.button:hover {
+  border-top-color: #28597a;
+  background: #28597a;
+  color: #ccc;
+}
+.button:active {
+  border-top-color: #1b435e;
+  background: #1b435e;
+}
+.filterButton{
+  padding: 15px 15px 0px 15px;
+}
+.form{
+  max-height: 1400px; /*This is just an upper limit*/
+  /*height: auto;*/
+  -webkit-transition: max-height 0.8s linear;
+  -moz-transition: max-height 0.8s linear;
+  transition: max-height 0.8s linear;
+}
+.collapse{
+  max-height: 0;
+  height: 0;
+}
+.expand-row{
+  color: orange;
+}
+.grid-menu-expand{
+  position: absolute;
+  top: 5px;
+  right: 30px;
+}
+.ngHeaderContainer, .ngHeaderScroller {
+  /*height: 60px !important;*/
+}
+.quater {
+  padding: 4px;
+  position: relative;
+  left: 223px;
+  width: 406px;
+  border-left: 1px solid #ccc;
+  bottom: 0;
+  top: 0;
+  text-align: center;
+}
+.ui-grid-category {
+  text-align: center;
+  border-right: 0px;
+  box-shadow: -1px 1px #d4d4d4 
+}
+.topborder{
+  border-top: 1px solid #d4d4d4;
+}
